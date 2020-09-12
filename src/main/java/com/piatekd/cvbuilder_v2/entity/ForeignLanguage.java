@@ -30,4 +30,6 @@ public class ForeignLanguage {
     @ManyToOne(fetch = FetchType.LAZY)
     private Person person;
 
+
+
 }

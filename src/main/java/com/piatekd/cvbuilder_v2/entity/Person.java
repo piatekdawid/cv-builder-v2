@@ -39,16 +39,18 @@ public class Person {
     private String phoneNumber;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
-    private Set<Education> educationSet = new LinkedHashSet<>();
+    @OrderBy("finishedSchool DESC")
+    private Set<Education> educationSet = new TreeSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
-    private Set<Experience> experienceSet = new LinkedHashSet<>();
+    @OrderBy("dateEnded DESC")
+    private Set<Experience> experienceSet = new TreeSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
-    private Set<Achievement> achievementSet = new LinkedHashSet<>();
+    private Set<Achievement> achievementSet = new TreeSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
-    private Set<ForeignLanguage> languageSet = new HashSet<>();
+    private Set<ForeignLanguage> languageSet = new TreeSet<>();
 
     @ElementCollection
     private List<String> hobbies = new ArrayList<>();
@@ -59,6 +61,7 @@ public class Person {
     @ElementCollection
     private List<String> profiles = new ArrayList<>();
 
+    @Column(name = "about_me", columnDefinition = "TEXT")
     private String aboutMe;
 
     @Column(name = "clauzule", columnDefinition = "TEXT")
@@ -81,7 +84,15 @@ public class Person {
     public void addHobby(String hobby) {
         hobbies.add(hobby);
     }
-
+    public void removeHobby(String hobby){
+        hobbies.remove(hobby);
+    }
+    public void removeProfile(String profile){
+        profiles.remove(profile);
+    }
+    public void removeSkill(String skill){
+        skills.remove(skill);
+    }
     public void addEducation(Education education) {
         educationSet.add(education);
         education.setPerson(this);

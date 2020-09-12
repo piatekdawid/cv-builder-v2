@@ -1,5 +1,6 @@
 package com.piatekd.cvbuilder_v2.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "education")
@@ -14,7 +16,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Education {
+public class Education{
 
 
     @Id
@@ -23,13 +25,17 @@ public class Education {
     private Long id;
 
     @Column(name = "started_date")
-    private String startedSchool;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate startedSchool;
+
 
     @Column(name = "finish_date")
-    private String finishedSchool;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate finishedSchool;
 
     private String course;
 
+    @Column(name = "city")
     private String city;
 
     private String degree;

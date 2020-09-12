@@ -1,5 +1,6 @@
 package com.piatekd.cvbuilder_v2.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "experience")
@@ -22,10 +24,12 @@ public class Experience {
     private Long id;
 
     @Column(name = "started_date")
-    private String dateStarted;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate dateStarted;
 
     @Column(name = "finish_date")
-    private String dateEnded;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate dateEnded;
 
     private String place;
 
