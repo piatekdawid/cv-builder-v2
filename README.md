@@ -7,5 +7,7 @@
 * JPA
 * MySql
 * Lombok
-* Swagger
-* Spring Security with JWT
+* iText 7
+
+## Soon:
+More resume templates.
