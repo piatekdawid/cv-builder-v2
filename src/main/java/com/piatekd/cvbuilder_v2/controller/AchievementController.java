@@ -3,7 +3,7 @@ package com.piatekd.cvbuilder_v2.controller;
 
 import com.piatekd.cvbuilder_v2.entity.Achievement;
 import com.piatekd.cvbuilder_v2.entity.Person;
-import com.piatekd.cvbuilder_v2.service.PersonService;
+import com.piatekd.cvbuilder_v2.service.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class AchievementController {
 
 
     @Autowired
-    private PersonService service;
+    private PersonServiceImpl service;
 
     @PostMapping("/{id}/achievement/")
     public Set<Achievement> addAchievement(@PathVariable Long id, @RequestBody Achievement achievement){

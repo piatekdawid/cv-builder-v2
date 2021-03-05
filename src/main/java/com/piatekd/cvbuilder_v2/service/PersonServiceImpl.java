@@ -8,18 +8,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PersonService {
+public class PersonServiceImpl {
+    
+    private final PersonRepository repository;
+    private final LanguageRepository languageRepository;
+    private final AchievementRepository achievementRepository;
+    private final EducationRepository educationRepository;
+    private final ExperienceRepository experienceRepository;
 
-    @Autowired
-    private PersonRepository repository;
-    @Autowired
-    private LanguageRepository languageRepository;
-    @Autowired
-    private AchievementRepository achievementRepository;
-    @Autowired
-    private EducationRepository educationRepository;
-    @Autowired
-    private ExperienceRepository experienceRepository;
+    public PersonServiceImpl(PersonRepository repository, LanguageRepository languageRepository, AchievementRepository achievementRepository, EducationRepository educationRepository, ExperienceRepository experienceRepository) {
+        this.repository = repository;
+        this.languageRepository = languageRepository;
+        this.achievementRepository = achievementRepository;
+        this.educationRepository = educationRepository;
+        this.experienceRepository = experienceRepository;
+    }
 
     public List<ForeignLanguage> deleteLanguage(Long id){
         return languageRepository.deleteLanguageById(id);
@@ -28,10 +31,6 @@ public class PersonService {
 
     public Person save(Person person) {
         return repository.save(person);
-    }
-
-    public Person findByPerson(Person person) {
-        return repository.findPersonById(person.getId());
     }
 
     public List<Person> findAll() {

@@ -18,9 +18,8 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.renderer.DocumentRenderer;
 import com.itextpdf.layout.renderer.IRenderer;
-import com.piatekd.cvbuilder_v2.CvBuilderV2Application;
 import com.piatekd.cvbuilder_v2.entity.*;
-import com.piatekd.cvbuilder_v2.service.PersonService;
+import com.piatekd.cvbuilder_v2.service.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -28,7 +27,6 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 
 @Component
@@ -47,10 +45,10 @@ public class Generator {
     private String dest;
 
     @Autowired
-    private PersonService personService;
-
+    private PersonServiceImpl personService;
     @Autowired
     private HttpSession session;
+
 
 
     public void generator(Person person) throws Exception {

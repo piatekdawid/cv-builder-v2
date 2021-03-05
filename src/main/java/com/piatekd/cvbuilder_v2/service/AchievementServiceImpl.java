@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class AchievementService {
+public class AchievementServiceImpl {
 
-    @Autowired
-    AchievementRepository repository;
+    private final AchievementRepository repository;
+
+    public AchievementServiceImpl(AchievementRepository repository) {
+        this.repository = repository;
+    }
 
     public Achievement save(Achievement achievement) {
         return repository.save(achievement);

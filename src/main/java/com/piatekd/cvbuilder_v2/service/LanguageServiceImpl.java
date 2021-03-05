@@ -7,11 +7,14 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class LanguageService {
+public class LanguageServiceImpl {
 
 
-    @Autowired
-    private LanguageRepository repository;
+    private final LanguageRepository repository;
+
+    public LanguageServiceImpl(LanguageRepository repository) {
+        this.repository = repository;
+    }
 
     public ForeignLanguage save(ForeignLanguage language) {
         return repository.save(language);

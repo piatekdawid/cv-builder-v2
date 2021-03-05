@@ -67,12 +67,6 @@ public class Person {
     @Column(name = "clauzule", columnDefinition = "TEXT")
     private String clauzule;
 
-    /*@Lob
-    private byte[] photo;
-
-    @Lob
-    private byte[] pdf;*/
-
     public void addSkill(String skill) {
         skills.add(skill);
     }

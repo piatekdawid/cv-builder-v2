@@ -2,7 +2,7 @@ package com.piatekd.cvbuilder_v2.controller;
 
 import com.piatekd.cvbuilder_v2.entity.Experience;
 import com.piatekd.cvbuilder_v2.entity.Person;
-import com.piatekd.cvbuilder_v2.service.PersonService;
+import com.piatekd.cvbuilder_v2.service.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class ExperienceController {
 
 
     @Autowired
-    private PersonService service;
+    private PersonServiceImpl service;
 
     @PostMapping("/{id}/experience/")
     public Set<Experience> addExperience(@PathVariable Long id, @RequestBody Experience experience){

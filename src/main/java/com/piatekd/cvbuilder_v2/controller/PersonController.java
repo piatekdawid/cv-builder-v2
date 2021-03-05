@@ -2,7 +2,7 @@ package com.piatekd.cvbuilder_v2.controller;
 
 import com.piatekd.cvbuilder_v2.entity.Person;
 import com.piatekd.cvbuilder_v2.exceptions.NoPersonFoundException;
-import com.piatekd.cvbuilder_v2.service.PersonService;
+import com.piatekd.cvbuilder_v2.service.PersonServiceImpl;
 import com.piatekd.cvbuilder_v2.utils.Generator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +23,7 @@ import java.util.List;
 public class PersonController {
 
     @Autowired
-    private PersonService service;
+    private PersonServiceImpl service;
 
     @Autowired
     private Generator generator;

@@ -29,5 +29,4 @@ public class Achievement {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Person person;
-
 }
