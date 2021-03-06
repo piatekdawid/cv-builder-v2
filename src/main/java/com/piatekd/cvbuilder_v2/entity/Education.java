@@ -2,13 +2,12 @@ package com.piatekd.cvbuilder_v2.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.Objects;
 
 @Entity
 @Table(name = "education")
@@ -16,7 +15,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Education{
+public class Education implements Comparable<Education>{
 
 
     @Id
@@ -48,4 +47,38 @@ public class Education{
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Person person;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Education education = (Education) o;
+        return Objects.equals(startedSchool, education.startedSchool) &&
+                Objects.equals(finishedSchool, education.finishedSchool) &&
+                Objects.equals(course, education.course) &&
+                Objects.equals(city, education.city) &&
+                Objects.equals(degree, education.degree) &&
+                Objects.equals(schoolName, education.schoolName) &&
+                Objects.equals(additionalInfo, education.additionalInfo) &&
+                Objects.equals(person, education.person);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(startedSchool, finishedSchool, course, city, degree, schoolName, additionalInfo, person);
+    }
+
+
+    @Override
+    public int compareTo(Education o) {
+        return Comparator.comparing(Education::getStartedSchool)
+                .thenComparing(Education::getFinishedSchool)
+                .thenComparing(Education::getCourse)
+                .thenComparing(Education::getDegree)
+                .thenComparing(Education::getSchoolName)
+                .thenComparing(Education::getCity)
+                .compare(this, o);
+    }
+
+
 }

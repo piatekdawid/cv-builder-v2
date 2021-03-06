@@ -1,10 +1,16 @@
 package com.piatekd.cvbuilder_v2.entity;
 
 import org.junit.jupiter.api.*;
+import org.springframework.util.ObjectUtils;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 class PersonTest {
 
@@ -68,23 +74,40 @@ class PersonTest {
     }
 
     @Test
-    @Disabled("Not implemented yet.")
     void addEducation() {
+        Education educationCreated = new Education(1L, LocalDate.now(), LocalDate.now(), "Psychology", "Mexico City", "Master", "University of Mexico", "Some info blah blah blah", person);
+        person.addEducation(educationCreated);
+
+        List<Education> educationList = person.getEducationSet().stream().filter(education -> education.getId() == 1L).collect(Collectors.toList());
+        assertTrue(educationCreated.equals(educationList.get(0)));
     }
 
     @Test
-    @Disabled("Not implemented yet.")
     void removeEducation() {
+        Education educationCreated = new Education(1L, LocalDate.now(), LocalDate.now(), "Psychology", "Mexico City", "Master", "University of Mexico", "Some info blah blah blah", person);
+        person.addEducation(educationCreated);
+
+        assertThat(person.getEducationSet().size(), is(1));
+        person.removeEducation(educationCreated);
+        assertThat(person.getEducationSet().size(), is(0));
     }
 
     @Test
-    @Disabled("Not implemented yet.")
     void addExperience() {
+        Experience experienceCreated = new Experience(1L, null, null, "Kraków", "Position", "Company", null, person);
+        person.addExperience(experienceCreated);
+
+        List<Experience> experienceList = person.getExperienceSet().stream().filter(experience -> experience.getId() == 1L).collect(Collectors.toList());
+        assertTrue(experienceCreated.equals(experienceList.get(0)));
     }
 
     @Test
-    @Disabled("Not implemented yet.")
     void removeExperience() {
+        Experience experienceCreated = new Experience(1L, null, null, "Kraków", "Position", "Company", null, person);
+        person.addExperience(experienceCreated);
+        assertThat(person.getExperienceSet().size(), equalTo(1));
+        person.removeExperience(experienceCreated);
+        assertTrue(person.getExperienceSet().size()==0);
     }
 
     @Test
@@ -98,8 +121,13 @@ class PersonTest {
     }
 
     @Test
-    @Disabled("Not implemented yet.")
     void addLanguage() {
+        ForeignLanguage language = new ForeignLanguage(1L, "english", "C1", null);
+        person.addLanguage(language);
+
+        List<ForeignLanguage> languageList = person.getLanguageSet().stream().filter(lang -> lang.getId() == 1L).collect(Collectors.toList());
+        assertThat(language, equalToObject(languageList.get(0)));
+
     }
 
     @Test

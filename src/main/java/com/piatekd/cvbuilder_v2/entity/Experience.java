@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.Objects;
 
 @Entity
 @Table(name = "experience")
@@ -16,7 +18,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Experience {
+public class Experience implements Comparable<Experience>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,4 +47,33 @@ public class Experience {
     @ManyToOne(fetch = FetchType.LAZY)
     private Person person;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Experience that = (Experience) o;
+        return Objects.equals(dateStarted, that.dateStarted) &&
+                Objects.equals(dateEnded, that.dateEnded) &&
+                Objects.equals(place, that.place) &&
+                Objects.equals(position, that.position) &&
+                Objects.equals(companyName, that.companyName) &&
+                Objects.equals(shortDescription, that.shortDescription) &&
+                Objects.equals(person, that.person);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dateStarted, dateEnded, place, position, companyName, shortDescription, person);
+    }
+
+    @Override
+    public int compareTo(Experience o) {
+        return Comparator.comparing(Experience::getCompanyName)
+                .thenComparing(Experience::getPosition)
+                .thenComparing(Experience::getPlace)
+                .thenComparing(Experience::getShortDescription, Comparator.nullsLast(Comparator.naturalOrder()))
+                .thenComparing(Experience::getDateStarted, Comparator.nullsLast(Comparator.naturalOrder()))
+                .thenComparing(Experience::getDateEnded, Comparator.nullsLast(Comparator.naturalOrder()))
+                .compare(this, o);
+    }
 }
