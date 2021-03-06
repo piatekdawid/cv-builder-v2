@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Comparator;
 
 @Entity
 @Table(name = "achievements")
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Achievement {
+public class Achievement implements Comparable<Achievement> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", insertable = false, updatable = false)
@@ -29,4 +30,11 @@ public class Achievement {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Person person;
+
+    @Override
+    public int compareTo(Achievement o) {
+        return Comparator.comparing(Achievement::getName)
+                .thenComparing(Achievement::getDescription)
+                .compare(this, o);
+    }
 }

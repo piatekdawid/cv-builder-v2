@@ -1,7 +1,6 @@
 package com.piatekd.cvbuilder_v2.entity;
 
 import org.junit.jupiter.api.*;
-import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.stream.Collectors;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 class PersonTest {
 
@@ -23,6 +21,19 @@ class PersonTest {
     @AfterEach
     void cleanUp(){
         this.person = null;
+    }
+
+    @Test
+    void hashcodeShouldBeEqualIfSameFields(){
+        Long id = 1L;
+        String firstName = "firstName";
+        String lastName = "lastName";
+        String address = "some street some number";
+
+        Person person1 = new Person(id, firstName,lastName,address,null,null,null,null,null,null,null,null,null,null,null,null,null);
+        Person person2 = new Person(id, firstName,lastName,address,null,null,null,null,null,null,null,null,null,null,null,null,null);
+
+        assertTrue(person1.equals(person2));
     }
 
     @Test
@@ -111,13 +122,21 @@ class PersonTest {
     }
 
     @Test
-    @Disabled("Not implemented yet.")
     void addAchievement() {
+        Achievement achievementCreated = new Achievement(1L, "SomeAchievement", "bla bla bla", person);
+        person.addAchievement(achievementCreated);
+
+        Achievement achievementLoaded = person.getAchievementSet().stream().filter(a -> a.getId()==1L).collect(Collectors.toList()).get(0);
+        assertTrue(achievementCreated.equals(achievementLoaded));
     }
 
     @Test
-    @Disabled("Not implemented yet.")
     void removeAchievement() {
+        Achievement achievementCreated = new Achievement(1L, "SomeAchievement", "bla bla bla", person);
+        person.addAchievement(achievementCreated);
+        assertTrue(person.getAchievementSet().size()==1);
+        person.removeAchievement(achievementCreated);
+        assertTrue(person.getAchievementSet().size()==0);
     }
 
     @Test
@@ -131,7 +150,11 @@ class PersonTest {
     }
 
     @Test
-    @Disabled("Not implemented yet.")
     void removeLanguage() {
+        ForeignLanguage language = new ForeignLanguage(1L, "english", "C1", null);
+        person.addLanguage(language);
+        assertThat(person.getLanguageSet().size(), equalTo(1));
+        person.removeLanguage(language);
+        assertThat(person.getLanguageSet().size(), equalTo(0));
     }
 }
